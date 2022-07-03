@@ -1,6 +1,6 @@
 const userService = require('@services/user')
 const loginService = require('@services/login')
-const constants = require('@utils/constants')
+const { logUser } = require('@utils/constants')
 
 const loginControllers = {
     authToken(req, res) {
@@ -18,22 +18,14 @@ const loginControllers = {
         try {
             let userFound = await userService.getUserByName(findUser.name)
             if (!userFound) {
-                res.status(200).json({
-                    status: 404,
-                    auth: false,
-                    msg: constants.userNotFound
-                })
+                res.sendError(logUser.userNotFound, 404)
                 return
             }
 
             const validUser = await loginService.verifyPassword(findUser.password, userFound.password)
 
             if (!validUser) {
-                res.status(200).json({
-                    status: 403,
-                    auth: false,
-                    msg: constants.invalidCredentials
-                })
+                res.sendError(logUser.invalidCredentials, 403)
             } else {
                 const token = await loginService.createToken(userFound.id, userFound.roleId);
 
