@@ -1,5 +1,4 @@
 const router = require('express').Router()
-
 const upload = require('@utils/uploadFile')
 const { check } = require('express-validator');
 
@@ -52,7 +51,6 @@ router.post('/article', // Acesso restrito a escritores
     check('title').isLength({ min: 1, max: 160 }).isString().withMessage(logDefault.invalidName),
     check('description').isLength({ min: 8}).withMessage(logDefault.invalidPassword),
     check('content').isLength({ min: 2 }).withMessage(logArticle.invalidContentArticle),
-
     check('CategoryId').isNumeric().withMessage(logDefault.invalidId),
     validResult,
     articleControllers.createArticle
