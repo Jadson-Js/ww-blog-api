@@ -47,11 +47,11 @@ const categoryControllers = {
                 return 
             }
 
-            await categoryService.createCategory(category)
-
+            const categoryCreated = await categoryService.createCategory(category)
+            
             res.status(200).json({
                 status: 200,
-                success: true
+                data: categoryCreated
             })
             
         } catch (err) {
