@@ -60,7 +60,7 @@ const articleService = {
     },
 
     async createArticle(article) {
-        return await Article.create({
+        await Article.create({
             ImageName: article.ImageName,
             title: article.title,
             description: article.description,
@@ -70,12 +70,12 @@ const articleService = {
     },
 
     async updateArticle(article) {
-        Article.update(
-            { 
-                title: article.newTitle,
-                description: article.newDescription,
-                content: article.newContent,
-                CategoryId: article.newCategoryId
+        await Article.update({ 
+                ImageName: article.ImageName,
+                title: article.title,
+                description: article.description,
+                content: article.content,
+                CategoryId: article.CategoryId
             },
             { where: { id: article.id } }
         )

@@ -152,10 +152,11 @@ const articleControllers = {
     async updateArticle(req, res) {
         const article = {
             id: req.params.articleId,
-            newTitle: req.body.newTitle,
-            newDescription: req.body.newDescription,
-            newContent: req.body.newContent,
-            newCategoryId: req.body.newCategoryId
+            ImageName: req.file.filename,
+            title: req.body.title,
+            description: req.body.description,
+            content: req.body.content,
+            CategoryId: req.body.CategoryId
         }
 
         try {
@@ -165,13 +166,13 @@ const articleControllers = {
                 return
             }
 
-            const titleAlreadyExist = await articleService.getArticleByTitle(article.newTitle)
+            const titleAlreadyExist = await articleService.getArticleByTitle(article.title)
             if (titleAlreadyExist != undefined) {
                 res.sendError(logDefault.titleAlreadyExist, 400)
                 return
             }
 
-            const categoryIdExist = await categoryService.getCategoryById(article.newCategoryId)
+            const categoryIdExist = await categoryService.getCategoryById(article.CategoryId)
             if (!categoryIdExist) {
                 res.sendError(logCategory.categoryNotFound, 404)
                 return

@@ -57,11 +57,11 @@ router.post('/article', // Acesso restrito a escritores
 )
 
 router.put('/article/:articleId',
-    check('articleId').isNumeric().withMessage(logDefault.invalidId),
-    check('newTitle').isLength({ min: 1, max: 160 }).isString().withMessage(logDefault.invalidTitle),
-    check('newDescription').isLength({ min: 8 }).withMessage(logArticle.invalidDescription),
-    check('newContent').isLength({ min: 2 }).withMessage(logArticle.invalidContent),
-    check('newCategoryId').isNumeric().withMessage(logDefault.invalidId),
+    upload.single('image'),
+    check('title').isLength({ min: 1, max: 160 }).isString().withMessage(logDefault.invalidName),
+    check('description').isLength({ min: 8}).withMessage(logDefault.invalidPassword),
+    check('content').isLength({ min: 2 }).withMessage(logArticle.invalidContentArticle),
+    check('CategoryId').isNumeric().withMessage(logDefault.invalidId),
     validResult,
     articleControllers.updateArticle
 )
